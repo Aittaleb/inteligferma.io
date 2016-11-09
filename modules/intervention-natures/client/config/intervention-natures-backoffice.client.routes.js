@@ -53,7 +53,7 @@
         views:{
           "content@backoffice":{
             templateUrl: 'modules/intervention-natures/client/views/backoffice/form-intervention-nature.client.view.html',
-            controller: 'interventionNaturesController',
+            controller: 'InterventionNaturesController',
             controllerAs: 'vm',
             resolve: {
               interventionNatureResolve: getInterventionNature

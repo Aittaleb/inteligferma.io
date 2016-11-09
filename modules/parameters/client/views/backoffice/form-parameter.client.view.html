@@ -1,20 +1,51 @@
 
-<form name="vm.form.interventionNatureForm"  ng-submit="vm.save(vm.form.interventionNatureForm.$valid)" novalidate>
+<form name="vm.form.parameterForm"  ng-submit="vm.save(vm.form.parameterForm.$valid)" novalidate>
   <md-card>
     <md-card-content>
       <md-input-container class="md-block flex-gt-sm" flex-gt-sm="" md-require-match required>
         <label for="name">Name</label>
-        <input ng-model="vm.interventionNature.name" class="md-input" name="name" id="name" aria-invalid="false" style="">
-        <div ng-messages="vm.form.interventionNatureForm.name.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Intervention nature name is required.</p>
+        <input ng-model="vm.parameter.name" class="md-input" name="name" id="name" aria-invalid="false" style="">
+        <div ng-messages="vm.form.parameterForm.name.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">parameter name is required.</p>
+        </div>
+      </md-input-container>
+      <md-select ng-model="vm.parameter.measurementType" placeholder="">
+        <md-option value="length">Length</md-option>
+        <md-option value="surface">Surface</md-option>
+        <md-option value="mass">Mass</md-option>
+        <md-option value="volume">Volume</md-option>
+        <md-option value="time">Time</md-option>
+        <md-option value="temperature">Temperature</md-option>
+        <md-option value="humidity">Humidity</md-option>
+        <md-option value="none">None</md-option>
+      </md-select>
+      <md-select ng-model="vm.parameter.component" placeholder="">
+        <md-option value="number">Number</md-option>
+        <md-option value="string">Characters</md-option>
+        <md-option value="boolean">Boolean</md-option>
+        <md-option value="select">Select</md-option>
+        <md-option value="choice">Choice</md-option>
+        <md-option value="range">Range</md-option>
+      </md-select>
+      <md-chips ng-model="vm.parameter.values" readonly="false" md-removable="true" md-enable-chip-edit="true"></md-chips>
+      <md-input-container class="md-block flex-gt-sm" flex-gt-sm="">
+        <label for="name">Default value</label>
+        <input ng-model="vm.parameter.defaultValue" class="md-input" name="default-value" id="defaultValue" aria-invalid="false" style="">
+        <div ng-messages="vm.form.parameterForm.defaultValue.$error" role="alert">
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block flex-gt-sm" flex-gt-sm="">
+        <label for="name">Default unit</label>
+        <input ng-model="vm.parameter.defaultUnit" class="md-input" name="default-unit" id="defaultUnit" aria-invalid="false" style="">
+        <div ng-messages="vm.form.parameterForm.defaultUnit.$error" role="alert">
         </div>
       </md-input-container>
       <md-input-container class="md-block">
         <label for="description">Description</label>
-        <textarea name="description" data-ng-model="vm.interventionNature.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        <textarea name="description" data-ng-model="vm.parameter.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
       </md-input-container>
       <center>
-        <md-button type="submit" class="md-primary">{{vm.interventionNature.id ? 'Update' : 'Create'}}</md-button>
+        <md-button type="submit" class="md-primary">{{vm.parameter.id ? 'Update' : 'Create'}}</md-button>
       </center>
       <div ng-show="vm.error" class="text-danger">
         <strong ng-bind="vm.error"></strong>

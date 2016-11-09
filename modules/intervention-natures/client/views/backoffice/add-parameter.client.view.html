@@ -1,0 +1,18 @@
+<md-dialog aria-label="Edit Parameter">
+  <md-content class="md-padding">
+    <form name="paramForm">
+      <md-autocomplete flex md-input-name="autocompleteParam" md-selected-item-change="dialog.paramChange(dialog.param)" md-no-cache="dialog.noCache" md-selected-item="dialog.param" md-search-text="dialog.searchParam" md-items="item in dialog.paramSearch(dialog.searchParam)" md-item-text="item.name" md-floating-label="Search parameter">
+        <md-item-template>
+          <span md-highlight-text="dialog.searchParam">{{item.name}}</span>
+        </md-item-template>
+        <div ng-messages="dialog.form.paramForm.autocompleteParam.$error" ng-if="dialog.form.paramForm.autocompleteParam.$touched">
+        </div>
+      </md-autocomplete>
+    </form>
+  </md-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="dialog.cancel()"> Cancel </md-button>
+    <md-button ng-click="dialog.save()" class="md-primary"> Add Parameter </md-button>
+  </div>
+</md-dialog>

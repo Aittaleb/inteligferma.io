@@ -1,0 +1,57 @@
+
+<style>.md-subheader .md-subheader-inner {padding:0px}</style>
+<form name="vm.form.interventionNatureForm"  ng-submit="vm.save(vm.form.interventionNatureForm.$valid)" novalidate>
+  <md-card>
+    <md-card-content>
+      <div layout layout-sm="column">
+        <div flex>
+          <md-input-container class="md-block flex-gt-sm" flex-gt-sm="" md-require-match required>
+            <label for="name">Name</label>
+            <input ng-model="vm.interventionNature.name" class="md-input" name="name" id="name" aria-invalid="false" style="">
+            <div ng-messages="vm.form.interventionNatureForm.name.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Intervention nature name is required.</p>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label for="description">Description</label>
+            <textarea name="description" data-ng-model="vm.interventionNature.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+          <md-chips ng-model="vm.selectedParams" md-autocomplete-snap md-transform-chip="vm.transformChip($chip)" md-require-match="vm.requireParamMatch">
+            <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="vm.searchParam" md-items="item in vm.paramSearch(vm.searchParam)" md-item-text="item.name" placeholder="Search for params">
+              <span md-highlight-text="ctrl.searchText">{{item.name}} :: {{item.type}}</span>
+            </md-autocomplete>
+            <md-chip-template>
+              <span>
+                <strong>{{$chip.name}}</strong>
+                <em>({{$chip.type}})</em>
+              </span>
+            </md-chip-template>
+          </md-chips>
+          <center>
+            <md-button type="submit" class="md-primary">{{vm.interventionNature.id ? 'Update' : 'Create'}}</md-button>
+          </center>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </div>
+        <div style="margin-left:25px" flex>
+          <md-list>
+            <md-subheader class="md-no-sticky" style="padding:0px">
+              <md-button class="md-icon-button" ng-click="vm.addParameter($event)">
+                <md-icon class="md-secondary">add</md-icon>
+              </md-button>List parameters
+            </md-subheader>
+            <md-list-item ng-repeat="parameter in parameters" class="noright">
+              <h2>{{ parameter.name }}</h2>
+              <p>{{ parameter.name }}</p>
+              <md-button class="md-icon-button" ng-click="editParam(parameter)">
+                <md-icon class="md-secondary">edit</md-icon>
+              </md-button>
+            </md-list-item>
+          </md-list>
+        </div>
+      </div>
+
+    </md-card-content>
+  </md-card>
+</form>

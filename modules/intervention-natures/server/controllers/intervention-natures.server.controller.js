@@ -9,6 +9,16 @@ var path = require('path'),
   _ = require('lodash'),
   InterventionNature = db.interventionNature;
 
+
+var getIdForParameters= function(parameters){
+  var idKeys = [];
+  _.each(parameters,function(item){
+    idKeys.push(item.id);
+  });
+
+  return idKeys;
+}
+
 /**
  * Create a interventionNature
  */
@@ -21,6 +31,10 @@ exports.create = function(req, res) {
         errors: 'Could not create the intervention nature'
       });
     } else {
+      // add parameter to intervention
+      var idKeys = getIdForParameters(req.body.parameters);
+      interventionNature.setParameters(idKeys);
+
       return res.jsonp(interventionNature);
     }
   }).catch(function(err) {
@@ -48,6 +62,10 @@ exports.update = function(req, res) {
   updatedAttr = _.omit(updatedAttr,'id','user_id','user');
 
   interventionNature.updateAttributes(updatedAttr).then(function(interventionNature) {
+    // add the parameter to intervention
+    var idKeys = getIdForParameters(updatedAttr.parameters);
+    interventionNature.setParameters(idKeys);
+
     res.json(interventionNature);
   }).catch(function(err) {
     console.log(JSON.stringify(err));
@@ -180,6 +198,9 @@ exports.interventionNatureByID = function(req, res, next, id) {
     },
     include: [{
       model: db.user, attributes:['id','displayName']
+    },
+    {
+      model: db.parameter,attributes:['id','name','measurementType']
     }
   ]
 }).then(function(interventionNature) {

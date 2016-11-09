@@ -20,6 +20,14 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: DataTypes.NOW,
       field: 'created_at'
     },
+    type:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    category:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -41,6 +49,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'intervention_natures',
     associate: function(models) {
       InterventionNature.belongsTo(models.user);
+      InterventionNature.belongsToMany(models.parameter, {through: 'intervention_nature_parameters'});
     }
   });
   return InterventionNature;

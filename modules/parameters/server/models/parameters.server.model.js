@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 
-  var InterventionNature = sequelize.define('interventionNature', {
+  var Parameter = sequelize.define('parameter', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -26,22 +26,40 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: DataTypes.NOW,
       field: 'updated_at'
     },
-    deletedAt:{
+    deletedAt: {
       type: DataTypes.DATE,
       allowNull: true,
       field: 'deleted_at'
     },
-    defaultParamsValue: {
+    measurementType: {
+      type: DataTypes.ENUM(['length','surface','mass','volume','time','temperature','humidity','none']),
+      field: 'measurement_type'
+    },
+    component: {
+      type: DataTypes.ENUM(['number','string','boolean','select','choice','range']),
+      field: 'component'
+    },
+    values: {
       type: DataTypes.JSON,
-      field: 'default_params_value'
+      field: 'values',
+      isArray: true
+    },
+    defaultValue: {
+      type: DataTypes.STRING,
+      field: 'default_value'
+    },
+    defaultUnit: {
+      type: DataTypes.STRING,
+      field: 'default_unit'
     }
   }, {
     underscored: true,
     freezeTableName: true,
-    tableName: 'intervention_natures',
+    tableName: 'parameters',
     associate: function(models) {
-      InterventionNature.belongsTo(models.user);
+      Parameter.belongsTo(models.user);
+      Parameter.belongsToMany(models.interventionNature, {through: 'intervention_nature_parameters'});
     }
   });
-  return InterventionNature;
+  return Parameter;
 };

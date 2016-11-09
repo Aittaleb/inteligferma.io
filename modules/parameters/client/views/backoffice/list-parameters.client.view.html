@@ -1,10 +1,10 @@
 
-<md-card style="padding:0px" ng-init="vm.getInterventionNatures()">
+<md-card style="padding:0px" ng-init="vm.getParameters()">
   <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.selectedItems.length">
     <div class="md-toolbar-tools">
-      <span>Intervention Natures</span>
+      <span>Parameters</span>
       <div flex></div>
-      <md-button class="md-icon-button" ng-click="vm.getInterventionNatures()">
+      <md-button class="md-icon-button" ng-click="vm.getParameters()">
         <md-icon>refresh</md-icon>
       </md-button>
     </div>
@@ -22,22 +22,28 @@
   <!-- exact table from live demo -->
   <md-table-container>
     <table md-table md-row-select multiple ng-model="vm.selectedItems" md-progress="vm.promise">
-      <thead md-head md-order="vm.dtConfig.order" md-on-reorder="vm.getInterventionNatures">
+      <thead md-head md-order="vm.dtConfig.order" md-on-reorder="vm.getParameters">
         <tr md-row>
-          <th md-column md-order-by="name"><span>Nom d'intervention</span></th>
-          <th md-column md-numeric>Description</th>
+          <th md-column md-order-by="name"><span>Nom du parameter</span></th>
+          <th md-column md-numeric>Type de mesure</th>
+          <th md-column md-numeric>Composante</th>
+          <th md-column md-numeric>Valeur par defaut</th>
+          <th md-column md-numeric>Unite par defaut</th>
           <th md-column style="text-align: center;">Actions</th>
         </tr>
       </thead>
       <tbody md-body>
-        <tr md-row md-select="interventionNature" md-select-id="name" md-auto-select ng-repeat="interventionNature in vm.interventionNatures.rows">
-          <td md-cell>{{interventionNature.name}}</td>
-          <td md-cell>{{interventionNature.description}}</td>
+        <tr md-row md-select="parameter" md-select-id="name" md-auto-select ng-repeat="parameter in vm.parameters.rows">
+          <td md-cell>{{parameter.name}}</td>
+          <td md-cell>{{parameter.measurementType}}</td>
+          <td md-cell>{{parameter.component}}</td>
+          <td md-cell>{{parameter.defaultValue}}</td>
+          <td md-cell>{{parameter.defaultUnit}}</td>
           <td md-cell style="text-align:center;">
-            <md-button class="md-icon-button" ng-click="vm.edit(interventionNature.id)">
+            <md-button class="md-icon-button" ng-click="vm.edit(parameter.id)">
               <md-icon>edit</md-icon>
             </md-button>
-            <md-button class="md-icon-button" ng-click="vm.deleteItems(interventionNature.id)">
+            <md-button class="md-icon-button" ng-click="vm.deleteItems(parameter.id)">
               <md-icon>delete</md-icon>
             </md-button>
           </td>

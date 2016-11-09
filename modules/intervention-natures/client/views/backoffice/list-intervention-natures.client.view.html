@@ -25,6 +25,8 @@
       <thead md-head md-order="vm.dtConfig.order" md-on-reorder="vm.getInterventionNatures">
         <tr md-row>
           <th md-column md-order-by="name"><span>Nom d'intervention</span></th>
+          <th md-column md-order-by="category"><span>Categorie</span></th>
+          <th md-column md-order-by="type"><span>Type</span></th>
           <th md-column md-numeric>Description</th>
           <th md-column style="text-align: center;">Actions</th>
         </tr>
@@ -32,6 +34,8 @@
       <tbody md-body>
         <tr md-row md-select="interventionNature" md-select-id="name" md-auto-select ng-repeat="interventionNature in vm.interventionNatures.rows">
           <td md-cell>{{interventionNature.name}}</td>
+          <td md-cell>{{interventionNature.category}}</td>
+          <td md-cell>{{interventionNature.type}}</td>
           <td md-cell>{{interventionNature.description}}</td>
           <td md-cell style="text-align:center;">
             <md-button class="md-icon-button" ng-click="vm.edit(interventionNature.id)">

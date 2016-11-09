@@ -15,49 +15,49 @@ exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/intervention-natures',
+      resources: '/api/parameters',
       permissions: '*'
     }, {
-      resources: '/api/intervention-natures/:interventionNatureId',
+      resources: '/api/parameters/:parameterId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/intervention-natures',
+      resources: '/api/parameters',
       permissions: ['get']
     }, {
-      resources: '/api/intervention-natures/:interventionNatureId',
+      resources: '/api/parameters/:parameterId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/intervention-natures',
+      resources: '/api/parameters',
       permissions: ['get']
     }, {
-      resources: '/api/intervention-natures/:interventionNatureId',
+      resources: '/api/parameters/:parameterId',
       permissions: ['get']
     }]
   },
   {
     roles: ['user','admin','guest'],
     allows: [{
-      resources: '/api/lazy/intervention-natures',
+      resources: '/api/lazy/parameters',
       permissions: ['get']
     }]
   },
   {
     roles: ['admin'],
     allows: [{
-      resources: '/api/ajax/intervention-natures/delete/all',
+      resources: '/api/ajax/parameters/delete/all',
       permissions: ['post']
     }]
   },
   {
     roles: ['admin'],
     allows: [{
-      resources: '/api/ajax/intervention-natures/startWith/:startWith',
+      resources: '/api/ajax/parameters/startWith/:startWith',
       permissions: ['get']
     }]
   }
@@ -65,14 +65,14 @@ exports.invokeRolesPolicies = function () {
 };
 
 /**
- * Check If Interventions Policy Allows
+ * Check If parameter Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
 
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an interventionNature is being processed and the current user created it then allow any manipulation
-  if (req.interventionNature && req.user && req.interventionNature.user && req.interventionNature.user.id === req.user.id) {
+  // If an parameter is being processed and the current user created it then allow any manipulation
+  if (req.parameter && req.user && req.parameter.user && req.parameter.user.id === req.user.id) {
     return next();
   }
 

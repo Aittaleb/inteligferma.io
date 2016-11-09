@@ -7,21 +7,21 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   db = require(path.resolve('./config/lib/sequelize')).models,
   _ = require('lodash'),
-  InterventionNature = db.interventionNature;
+  Parameter = db.parameter;
 
 /**
- * Create a interventionNature
+ * Create a Parameter
  */
 exports.create = function(req, res) {
   req.body.userId = req.user.id;
 
-  InterventionNature.create(req.body).then(function(interventionNature) {
-    if (!interventionNature) {
+  Parameter.create(req.body).then(function(parameter) {
+    if (!parameter) {
       return res.send('users/signup', {
-        errors: 'Could not create the intervention nature'
+        errors: 'Could not create the parameter'
       });
     } else {
-      return res.jsonp(interventionNature);
+      return res.jsonp(parameter);
     }
   }).catch(function(err) {
     return res.status(400).send({
@@ -31,24 +31,24 @@ exports.create = function(req, res) {
 };
 
 /**
- * Show the current interventionNature
+ * Show the current Parameter
  */
 exports.read = function(req, res) {
-  res.json(req.interventionNature);
+  res.json(req.parameter);
 };
 
 /**
- * Update a intervention
+ * Update a parameter
  */
 exports.update = function(req, res) {
-  var interventionNature = req.interventionNature;
+  var parameter = req.parameter;
   var updatedAttr = _.clone(req.body);
 
   //delete the field that you want to protect from change
   updatedAttr = _.omit(updatedAttr,'id','user_id','user');
 
-  interventionNature.updateAttributes(updatedAttr).then(function(interventionNature) {
-    res.json(interventionNature);
+  parameter.updateAttributes(updatedAttr).then(function(parameter) {
+    res.json(parameter);
   }).catch(function(err) {
     console.log(JSON.stringify(err));
     return res.status(400).send({
@@ -58,15 +58,15 @@ exports.update = function(req, res) {
 };
 
 /**
- * Delete an interventionNature
+ * Delete an parameter
  */
 exports.delete = function(req, res) {
-  var interventionNature = req.interventionNature;
-  // Find the intervention
-  InterventionNature.findById(interventionNature.id).then(function(interventionNature) {
-    if (interventionNature) {
-      interventionNature.update({deletedAt: Date.now()}).then(function() {
-        return res.json(interventionNature);
+  var parameter = req.parameter;
+  // Find the parameter
+  Parameter.findById(parameter.id).then(function(parameter) {
+    if (parameter) {
+      parameter.update({deletedAt: Date.now()}).then(function() {
+        return res.json(parameter);
       }).catch(function(err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -87,18 +87,18 @@ exports.delete = function(req, res) {
 };
 
 /**
- * List of interventionNatures
+ * List of Parameter
  */
 exports.list = function(req, res) {
-  InterventionNature.findAll({
+  Parameter.findAll({
     include: []
-  }).then(function(interventionNatures) {
-    if (!interventionNatures) {
+  }).then(function(parameters) {
+    if (!parameters) {
       return res.status(404).send({
-        message: 'No intervention nature found'
+        message: 'No parameter found'
       });
     } else {
-      res.json(interventionNatures);
+      res.json(parameters);
     }
   })
   .catch(function(err) {
@@ -120,7 +120,7 @@ exports.lazy= function(req,res){
     column= column.replace('-','');
   }
 
-  InterventionNature.findAndCountAll({
+  Parameter.findAndCountAll({
      order: column+' '+orderType,
      offset: offset,
      limit: limit,
@@ -143,7 +143,7 @@ exports.lazy= function(req,res){
 exports.deleteAll= function(req,res){
   var itemsToDelete= req.body.itemsToDelete;
 
-  InterventionNature.update({deletedAt: Date.now()},{ where: {id: {$in: itemsToDelete}}})
+  Parameter.update({deletedAt: Date.now()},{ where: {id: {$in: itemsToDelete}}})
     .then(function(updatedRow){
       res.json({deletedRow:updatedRow})
     }).catch(function(err){
@@ -152,11 +152,11 @@ exports.deleteAll= function(req,res){
 }
 
 
-exports.searchTokenInterventionNatures = function(req,res){
+exports.searchTokenParameters = function(req,res){
   var startWith = req.params.startWith;
-  InterventionNature.findAll({attributes:['id','name'],where:{name: {$ilike:'%'+startWith+'%'}}})
-    .then(function(interventionNatures){
-      res.json(interventionNatures);
+  Parameter.findAll({attributes:['id','name', 'measurementType'],where:{name: {$ilike:'%'+startWith+'%'}}})
+    .then(function(parameters){
+      res.json(parameters);
     }).catch(function(err){
       res.json([]);
     });
@@ -164,17 +164,17 @@ exports.searchTokenInterventionNatures = function(req,res){
 
 
 /**
- * Intervention middleware
+ * parameter middleware
  */
-exports.interventionNatureByID = function(req, res, next, id) {
+exports.parameterByID = function(req, res, next, id) {
 
   if ((id % 1 === 0) === false) { //check if it's integer
     return res.status(404).send({
-      message: 'Product is invalid'
+      message: 'Parameter is invalid'
     });
   }
 
-  InterventionNature.find({
+  Parameter.find({
     where: {
       id: id
     },
@@ -182,13 +182,13 @@ exports.interventionNatureByID = function(req, res, next, id) {
       model: db.user, attributes:['id','displayName']
     }
   ]
-}).then(function(interventionNature) {
-    if (!interventionNature) {
+}).then(function(parameter) {
+    if (!parameter) {
       return res.status(404).send({
-        message: 'No intervention nature with that identifier has been found'
+        message: 'No parameter with that identifier has been found'
       });
     } else {
-      req.interventionNature = interventionNature;
+      req.parameter = parameter;
       next();
     }
   }).catch(function(err) {

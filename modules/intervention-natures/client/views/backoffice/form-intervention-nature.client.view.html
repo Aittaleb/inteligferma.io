@@ -1,4 +1,5 @@
 
+<style>.md-subheader .md-subheader-inner {padding:0px}</style>
 <form name="vm.form.interventionNatureForm"  ng-submit="vm.save(vm.form.interventionNatureForm.$valid)" novalidate>
   <md-card>
     <md-card-content>
@@ -9,10 +10,45 @@
           <p class="help-block error-text" ng-message="required">Intervention nature name is required.</p>
         </div>
       </md-input-container>
+      <md-select ng-model="vm.interventionNature.category" placeholder="">
+        <md-option value="animal_production">Production animale</md-option>
+        <md-option value="vegital_production">Production végétale</md-option>
+        <md-option value="transformation">Transformation</md-option>
+        <md-option value="maintenance">Maintenance</md-option>
+      </md-select>
+      <md-select ng-model="vm.interventionNature.type" placeholder="">
+        <md-option value="feeding_watering" ng-show="vm.interventionNature.category == 'animal_production'">Alimentation et abreuvage</md-option>
+        <md-option value="habitat_maintenance" ng-show="vm.interventionNature.category == 'animal_production'">Entretien de l'habitat</md-option>
+        <md-option value="animal_products" ng-show="vm.interventionNature.category == 'animal_production'">Produits animaux</md-option>
+        <md-option value="animal_reproduction" ng-show="vm.interventionNature.category == 'animal_production'">Reproduction animale</md-option>
+        <md-option value="crop_maintenance" ng-show="vm.interventionNature.category == 'vegital_production'">Entretien des cultures</md-option>
+        <md-option value="fertilization" ng-show="vm.interventionNature.category == 'vegital_production'">Fertilisation</md-option>
+        <md-option value="irrigation" ng-show="vm.interventionNature.category == 'vegital_production'">Irrigation</md-option>
+        <md-option value="planting" ng-show="vm.interventionNature.category == 'vegital_production'">Plantation</md-option>
+        <md-option value="crop_protection" ng-show="vm.interventionNature.category == 'vegital_production'">Protection des cultures</md-option>
+        <md-option value="harvest" ng-show="vm.interventionNature.category == 'vegital_production'">Récolte</md-option>
+        <md-option value="ground_work" ng-show="vm.interventionNature.category == 'vegital_production'">Travail du sol</md-option>
+        <md-option value="excavation_work_on_facilities" ng-show="vm.interventionNature.category == 'vegital_production' || vm.interventionNature.category == 'animal_production'">Travaux fonciers sur installations</md-option>
+        <md-option value="processing_plant_products" ng-show="vm.interventionNature.category == 'transformation'">Transformation produits végétaux</md-option>
+        <md-option value="viticulture" ng-show="vm.interventionNature.category == 'transformation'">Viticulture</md-option>
+        <md-option value="equipment_supply" ng-show="vm.interventionNature.category == 'maintenance'">Alimentation matériel</md-option>
+        <md-option value="repair_and_maintenance" ng-show="vm.interventionNature.category == 'maintenance'">Réparation et entretien</md-option>
+      </md-select>
       <md-input-container class="md-block">
         <label for="description">Description</label>
         <textarea name="description" data-ng-model="vm.interventionNature.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
       </md-input-container>
+      <md-chips ng-model="vm.interventionNature.parameters" md-autocomplete-snap md-transform-chip="vm.transformChip($chip)" md-require-match="vm.requireParamMatch">
+        <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="vm.searchParam" md-items="item in vm.paramSearch(vm.searchParam)" md-item-text="item.name" placeholder="Search for params">
+          <span md-highlight-text="ctrl.searchText">{{item.name}} :: {{item.measurementType}}</span>
+        </md-autocomplete>
+        <md-chip-template>
+          <span>
+            <strong>{{$chip.name}}</strong>
+            <em>({{$chip.measurementType}})</em>
+          </span>
+        </md-chip-template>
+      </md-chips>
       <center>
         <md-button type="submit" class="md-primary">{{vm.interventionNature.id ? 'Update' : 'Create'}}</md-button>
       </center>

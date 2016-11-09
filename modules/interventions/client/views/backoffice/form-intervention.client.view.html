@@ -1,14 +1,43 @@
+<div layout>
+  <div flex-gt-sm="50" flex>
+    <md-toolbar layout="row" class="md-hue-3">
+      <div class="md-toolbar-tools">
+        <span>Intervention Category</span>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-list flex>
+        <md-list-item class="md-3-line" ng-repeat="item in vm.interventionCategory" ng-click="null">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.description }}</p>
 
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+  <div flex-gt-sm="50" flex>
+    <md-toolbar layout="row" class="md-hue-3">
+      <div class="md-toolbar-tools">
+        <span>Intervention Nature</span>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-list flex>
+        <md-list-item class="md-3-line" ng-repeat="item in vm.interventionNatures" ng-click="null">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.description }}</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+</div>
 <form name="vm.form.interventionForm"  ng-submit="vm.save(vm.form.interventionForm.$valid)" novalidate>
-  <md-card>
+  <md-card ng-hide="true">
     <md-card-content>
-      <md-input-container class="md-block flex-gt-sm" flex-gt-sm="" md-require-match required>
-        <label for="name">Name</label>
-        <input ng-model="vm.intervention.name" class="md-input" name="name" id="name" aria-invalid="false" style="">
-        <div ng-messages="vm.form.interventionForm.name.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Intervention name is required.</p>
-        </div>
-      </md-input-container>
       <md-input-container class="md-block">
         <label for="description">Description</label>
         <textarea name="description" data-ng-model="vm.intervention.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>

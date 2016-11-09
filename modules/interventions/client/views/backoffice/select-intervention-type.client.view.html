@@ -1,0 +1,18 @@
+
+<form name="vm.form.interventionChoiceForm"  ng-submit="vm.save(vm.form.interventionChoiceForm.$valid)" novalidate>
+  <md-card>
+    <md-card-content>
+
+      <!-- <md-select ng-model="vm.intervention" placeholder="">
+        <md-option value="observation">Observation</md-option>
+        <md-option value="inspection">Inspection</md-option>
+        <md-option value="issus">Issus</md-option>
+        <md-option value="normal">Normale</md-option>
+      </md-select> -->
+
+      <div ng-show="vm.error" class="text-danger">
+        <strong ng-bind="vm.error"></strong>
+      </div>
+    </md-card-content>
+  </md-card>
+</form>

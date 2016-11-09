@@ -22,6 +22,28 @@
     vm.interventionChange   = interventionChange;
 
 
+    vm.interventionCategory = [
+      {name: 'Production animale',description: 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.',
+        interventionNatures:[
+          {name:'Alimentation et abreuvage', description:'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.'},
+          {name:'Entretien de l\'habitat', description:'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.'},
+          {name:'Produits animaux', description:'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.'},
+          {name:'Reproduction animale', description:'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.'},
+        ]
+      },
+      {name:'Production vegetale',description: 'On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions.'},
+      {name:'Transformation',description: 'Plusieurs variations de Lorem Ipsum peuvent être trouvées ici ou là, mais la majeure partie d\'entre elles a été altérée par l\'addition d\'humour ou de mots aléatoires'},
+      {name:'Maintenance',description: 'Contrairement à une opinion répandue, le Lorem Ipsum n\'est pas simplement du texte aléatoire. Il trouve ses racines'},
+    ];
+
+    vm.interventionNatures=[
+      {name:'Alimentation et abreuvage', description:'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.'},
+      {name:'Entretien de l\'habitat', description:'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.'},
+      {name:'Produits animaux', description:'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.'},
+      {name:'Reproduction animale', description:'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.'},
+    ];
+
+
     /**
      * Search for interventions...
      * remote dataservice call.

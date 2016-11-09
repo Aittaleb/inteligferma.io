@@ -3,16 +3,6 @@
 module.exports = function(sequelize, DataTypes) {
 
   var Intervention = sequelize.define('intervention', {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: {
-          args: [1, 250],
-          msg: "Intervention name must be between 1 and 250 characters in length"
-        }
-      }
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

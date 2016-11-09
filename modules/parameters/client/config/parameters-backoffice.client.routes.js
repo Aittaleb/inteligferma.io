@@ -31,7 +31,7 @@
         url: '/create',
         views:{
           "content@backoffice":{
-            templateUrl: 'modules/parameters/client/views/backoffice/form-parameters-nature.client.view.html',
+            templateUrl: 'modules/parameters/client/views/backoffice/form-parameter.client.view.html',
             controller: 'ParametersController',
             controllerAs: 'vm',
             resolve: {
@@ -82,8 +82,9 @@
 
   newParameter.$inject = ['ParametersService'];
 
-  function newInterventionNature(ParametersService) {
+  function newParameter(ParametersService) {
     var parameter = new ParametersService();
+    parameter.values = [];
     return parameter;
   }
 }());
